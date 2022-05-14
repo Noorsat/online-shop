@@ -1,0 +1,47 @@
+body, *{
+  font-family: 'Inter', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.ant-modal-header{
+  display:none;
+}
+.ant-modal-footer{
+  display: none;
+}
+.ant-modal-close-x{
+  display: none!important;
+}
+.ant-modal{
+  max-width:100%!important;
+}
+.ant-modal-body{
+  max-width:1320px!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
