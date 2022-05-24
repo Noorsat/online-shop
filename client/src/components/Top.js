@@ -61,7 +61,7 @@ const BannerTitle = styled.div`
 
 const BannerPrice = styled.div`
     display:flex;
-    justify-content:space-between;
+    justify-content:center ;
     align-items:center;
     border: 1px solid #111114;
     border-radius: 6px;
@@ -107,37 +107,22 @@ const BannerTag = styled.span`
         }
         </div>
         <div className='pb-4 d-flex justify-content-between'>
+            <NavLink to="/showcase">
             <Banner image="url(images/iphone.png)">
-                <BannerContent>
-                    <BannerTitle>
-                        Apple iPhone 12
-                    </BannerTitle>     
-                    <NavLink to="/showcase">
-                    <BannerPrice>
-                        <BannerPriceTitle>
-                            480,000 ₸
-                        </BannerPriceTitle>
-                        <div>
-                            <img src="images/cart.svg" width={24}/>
-                        </div>
-                    </BannerPrice>
-                    </NavLink>
-                </BannerContent>
+                
+                    <BannerContent>
+                        <BannerTitle>
+                            Apple iPhone 12
+                        </BannerTitle>     
+                        <BannerPrice>
+                            <BannerPriceTitle style={{textAlign:"center"}}>
+                                480,000 ₸
+                            </BannerPriceTitle>
+                        </BannerPrice>
+                    </BannerContent>
             </Banner>
-            <Banner image="url(images/top-2.png)">
-                <NavLink to="/showcase">
-                <BannerContent>
-                    <div className='mb-3'>
-                        <NavLink to="/basket">
-                            <img src="images/cart.svg" width={24}/>
-                        </NavLink>
-                    </div>
-                    <BannerTitle style={{lineHeight:'36px'}}>
-                        Телефоны, планшеты и др.
-                    </BannerTitle> 
-                </BannerContent>
-                </NavLink>
-            </Banner>
+            </NavLink>
+            <NavLink to="/showcase">
             <Banner image="#F1F1F1">
                 <BannerContent>
                     <BannerTag className='mb-3'>
@@ -154,30 +139,41 @@ const BannerTag = styled.span`
                             <BannerPriceTitle>
                                 108000 ₸
                             </BannerPriceTitle>
-                            <div>
-                                <img src="images/cart.svg" width={24}/>
-                            </div>
                         </BannerPrice>
                     </NavLink>    
                 </BannerContent>
             </Banner> 
-            <Banner image="url(images/iphone.png)">
+            </NavLink>
+            <NavLink to="/showcase"> 
+            <Banner image="url(images/top-2.png)">
+                <NavLink to="/showcase">
                 <BannerContent>
-                    <BannerTitle>
-                        Apple iPhone 12
-                    </BannerTitle>    
-                    <NavLink to="/showcase">
-                    <BannerPrice>
-                        <BannerPriceTitle>
-                            480000 ₸
-                        </BannerPriceTitle>
-                        <div>
-                            <img src="images/cart.svg" width={24}/>
-                        </div>
-                    </BannerPrice>
-                    </NavLink> 
+                    <BannerTitle style={{lineHeight:'36px'}}>
+                        Телефоны, планшеты и др.
+                    </BannerTitle> 
                 </BannerContent>
+                </NavLink>
             </Banner>
+            </NavLink>
+            <NavLink to="/showcase">
+            <Banner image="#F1F1F1">
+                <BannerContent className=''>
+                    <div className='mt-3' style={{textAlign:"center"}}>
+                        <img src="images/mac.png" width={230}/>
+                    </div>
+                    <BannerTitle>
+                        MacBook Pro 2021/16GB
+                    </BannerTitle> 
+                    <NavLink to="/showcase">
+                        <BannerPrice>
+                            <BannerPriceTitle>
+                                1 230,450 ₸
+                            </BannerPriceTitle>
+                        </BannerPrice>
+                    </NavLink>    
+                </BannerContent>
+            </Banner> 
+            </NavLink>
         </div>
 
     </Container>

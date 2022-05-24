@@ -92,7 +92,7 @@ const Showcase = () => {
         setSelectedItems(devices.rows.filter(item => item.typeId === title.id))
   }
 
-  console.log(selectedItems)
+  console.log(devices)
 
   return (
     <Container>

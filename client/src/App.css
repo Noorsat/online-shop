@@ -7,23 +7,7 @@ body, *{
   background: transparent; /* make scrollbar transparent */
 }
 
-.ant-modal-header{
-  display:none;
-}
-.ant-modal-footer{
-  display: none;
-}
-.ant-modal-close-x{
-  display: none!important;
-}
-.ant-modal{
-  max-width:100%!important;
-}
-.ant-modal-body{
-  max-width:1320px!important;
-  margin:0 auto!important;
-  padding:0!important;
-}
+
 .trigger {
   padding: 0 24px;
   font-size: 18px;

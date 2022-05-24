@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
+import { NavLink } from 'react-router-dom';
 
 const Title = styled.div`
   color: rgba(17, 17, 20, 0.48);
@@ -26,17 +27,20 @@ const Container = styled.div`
 `
 
 const Button = styled.div`
+padding:16px 0;
+max-width:320px;
+margin:0 auto;
+border: 1px solid #FFFFFF;
+border-radius: 6px; 
+text-align:center;
+a{
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   text-align: center;
   letter-spacing: 0.02em;
-  padding:16px 0;
-  max-width:320px;
-  margin:0 auto;
-  border: 1px solid #FFFFFF;
-  border-radius: 6px; 
   color: #FFFFFF;
+}
 `
 
 const ItemTitle = styled.div`
@@ -70,14 +74,16 @@ const Slider = ({title, text, sliderData}) => {
             {
                sliderData.map((item,index) => (
                   <div>
-                    <h3 style={{height:300, background:`url("images/slider-${index+1}.png")`}}>
-                      <ItemTitle>
-                          {item}
-                      </ItemTitle>
-                      <Button>
-                        Подробнее
-                      </Button>
-                    </h3>
+                      <h3 style={{height:300, background:`url("images/slider-${index+1}.png")`}}>
+                        <ItemTitle>
+                            {item}
+                        </ItemTitle>
+                        <Button>
+                          <NavLink to="/showcase">
+                          Подробнее
+                          </NavLink>
+                        </Button>
+                      </h3>
                   </div>
                )) 
             }

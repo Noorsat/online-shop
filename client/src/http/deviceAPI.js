@@ -1,7 +1,4 @@
 import { $authHost, $host } from "."
-import { useDispatch } from 'react-redux';
-
-
 
 export const createType =  async (type) => {
     const {data} = await $authHost.post("api/type", type)   
@@ -23,15 +20,26 @@ export const fetchBrand = async () => {
 
 export const createDevice =  async (device) => {
     const {data} = await $authHost.post("api/device", device)   
-    console.log(data)
 }
 
 export const fetchDevices = async () => {
-    const {data} = await $host.get("api/device/?limit=17")
+    const {data} = await $host.get("api/device/?limit=100")
     return data
 }
 
 export const fetchOneDevice = async (id) => {
     const {data} = await $host.get("/api/device/" + id)
     return data;
+}
+
+export const deleteType = async (id) => {
+    const {data} = await $host.delete("api/type/?id=" + id)
+}
+
+export const deleteBrand = async (id) => {
+    const {data} = await $host.delete("api/brand/?id=" + id)
+}
+
+export const deleteDevice = async (id) => {
+    const {data} = await $host.delete("api/device/?id=" + id)
 }

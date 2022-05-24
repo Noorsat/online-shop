@@ -47,7 +47,7 @@ const Card = ({product}) => {
   return (
     <Wrapper>
         <div className='mb-3 text-center'>
-            <img src={process.env.REACT_APP_API_URL + product.img} style={{display:"inline", maxWidth:"200px", maxHeight:150}} />
+            <img src={product.img} style={{display:"inline", maxWidth:"200px", maxHeight:150}} />
         </div>
         <Price>
             {product.price} ₸

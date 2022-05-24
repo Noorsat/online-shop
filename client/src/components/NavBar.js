@@ -44,13 +44,28 @@ const Nav = styled.nav`
     }
 `
 
-const Wrapper = styled.div`
-    position:fixed;
-    background:#fff;
-    width:100%;
-    z-index:100000;
-    padding:16px 0;
-` 
+const ModalStyled = styled(Modal)`
+max-width:100%!important;
+.ant-modal-header{
+    display:none;
+  }
+  .ant-modal-footer{
+    display: none;
+  }
+  .ant-modal-close-x{
+    display: none!important;
+  }
+  .ant-modal{
+    max-width:100%!important;
+    width:100%!important;
+  }
+  .ant-modal-body{
+    max-width:1320px!important;
+    margin:0 auto!important;
+    padding:0!important;
+  }
+`
+
 
 const NavBar = () => {
     const isLogin = useSelector(state => state.user.isAuth);
@@ -80,9 +95,19 @@ const NavBar = () => {
     const handleCancel = () => {
       setIsModalVisible(false);
     };
+
+    const Wrapper = styled.div`
+    position:fixed;
+    background:#fff;
+    width:100%;
+    max-width:100%!important;
+    z-index:${ isModalVisible ? "10000000": "100" };
+    padding:16px 0;
+   
+` 
   return (
       <Wrapper>
-           <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{top:80}} footer={[]} width="100%">
+           <ModalStyled title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{top:80}} footer={[]} width="100%">
                 <div style={{maxWidth:1320, paddingTop:20, paddingBottom:20}} className="d-flex align-items-center justify-content-between">
                     <div className='d-flex'>
                         <div className='me-3'>
@@ -96,7 +121,7 @@ const NavBar = () => {
                         <img src="images/subtract.svg" onClick={() => setSearchValue("") }/>
                     </div>
                 </div>
-            </Modal>
+            </ModalStyled>
     <Container className='d-flex justify-content-between align-items-center'>
         <Logo>
             <NavLink to="/">Valde</NavLink>

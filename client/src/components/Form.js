@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { Input} from 'antd';
+import { NavLink } from 'react-router-dom';
+import { Modal } from 'antd';
 
 const Container = styled.div`
   max-width:1320px;
@@ -18,6 +20,7 @@ const Button = styled.div`
     background: #652D86;
     text-align:center;
     border-radius: 6px;
+    cursor:pointer; 
 `
 
 const Title = styled.div`
@@ -40,6 +43,20 @@ const Text = styled.div`
 
 
 const Form = () => {
+    const [number, setNumber] = useState("");
+    const [email, setEmail] = useState("");
+
+    function success() {
+        Modal.success({
+          content: 'Ваша заявка принята. Ожидайте звонок',
+        });
+    }
+
+    function error() {
+    Modal.error({
+        title: 'Заполните email и номер',
+    });
+    }
   return (
     <Container className='pb-3'>
         <div style={{maxWidth:856, margin:'0 auto', border:"1px solid rgba(17, 17, 20, 0.08)", borderRadius:6}} className="d-flex">
@@ -56,9 +73,9 @@ const Form = () => {
                 <Text>
                     Весь процесс займет не более 10 минут
                 </Text>
-                <Input placeholder='Ваш номер телефона' className='mb-2' size="large"/>
-                <Input placeholder='Ваш email' className='mb-4' size="large"/>
-                <Button>
+                <Input placeholder='Ваш номер телефона' className='mb-2' size="large" value={number} onChange={(e) => setNumber(e.target.value)}/>
+                <Input placeholder='Ваш email' className='mb-4' size="large" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <Button  onClick={email.length > 0 && number.length ? success :  error}>
                     Отправить заявку
                 </Button>
             </div>

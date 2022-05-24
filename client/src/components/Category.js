@@ -11,14 +11,15 @@ const Title = styled.div`
 `
 
 const Category = ({data}) => {  
+    console.log(data);
   return (
-    <div className='d-flex justify-content-center gap-5' style={{marginTop:160}}>
+    <div className='d-flex justify-content-center flex-wrap gap-5' style={{marginTop:160, maxWidth:1320, margin:"160px auto"}}>
         {
             data && 
             data.map(item => (
                 <NavLink to="/showcase">
                     <div style={{textAlign:"center"}} className="mb-3">
-                        <img src={process.env.REACT_APP_API_URL + item.img}/>
+                        <img src={item.img} width={96} style={{borderRadius:"50% "}}/>
                     </div>
                     <Title>
                         {item.name}

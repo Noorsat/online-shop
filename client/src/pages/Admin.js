@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Nav, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBrand, createDevice, createType, fetchBrand } from '../http/deviceAPI';
+import { createBrand, createDevice, createType, deleteType, deleteBrand, deleteDevice } from '../http/deviceAPI';
 import { fetchBrandsLocal } from '../redux/actions/brandActions';
 
 const Admin = () => {
@@ -27,6 +27,7 @@ const Admin = () => {
     name:""
   })
 
+
   const types = useSelector(state => state.types.types)
   const brands = useSelector(state => state.brands.brands)
   const devices = useSelector(state => state.devices.devices)
@@ -46,24 +47,35 @@ const Admin = () => {
     e.preventDefault()
     const formData = new FormData() 
     formData.append("name", type.name) 
-    formData.append("img", device.img)
+    formData.append("img", type.img)
     createType(formData)
-  }
+  } 
 
   const brandHandler = (e) => {
     e.preventDefault()
     createBrand(brand)
   }
 
-  console.log(device)
+  const deleteDeviceHandler = (id) => {
+    deleteDevice(id)
+  } 
 
+  const deleteTypeHandler = (id) => {
+    deleteType(id)
+  }
+
+  const deleteBrandHandler = (id) => {
+   deleteBrand(id)
+  }
+
+  console.log(device)
   return (
     <div style={{paddingTop:100, maxWidth:1350, margin:"0 auto"}} className="d-flex">
       <div className="me-5">
         <Nav className="flex-column" style={{border:"1px solid rgba(17, 17, 20, 0.08)", borderRadius:6, paddingRight:30, paddingBottom:100}}>
-          <Nav.Link onClick={() => setSelected("device")}>Device</Nav.Link>
-          <Nav.Link onClick={() => setSelected("type")}>Type</Nav.Link>
-          <Nav.Link onClick={() => setSelected("brand")}>Brand</Nav.Link>
+          <Nav.Link onClick={() => setSelected("device")}>Продукты</Nav.Link>
+          <Nav.Link onClick={() => setSelected("type")}>Типы</Nav.Link>
+          <Nav.Link onClick={() => setSelected("brand")}>Бренды</Nav.Link>
         </Nav>
       </div>
       <div>
@@ -74,41 +86,41 @@ const Admin = () => {
           <h5>Добавить девайс</h5>
           <Form onSubmit={(e) => deviceHandler(e)}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Name" value={device.name} onChange={(e) => setDevice({...device, name: e.target.value})} />
+            <Form.Label>Название</Form.Label>
+            <Form.Control type="text" placeholder="Название" value={device.name} onChange={(e) => setDevice({...device, name: e.target.value})} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Price</Form.Label>
-            <Form.Control type="text" placeholder="Price" onChange={(e) => setDevice({...device, price: Number(e.target.value)})}/>
+            <Form.Label>Цена</Form.Label>
+            <Form.Control type="text" placeholder="Цена" onChange={(e) => setDevice({...device, price: Number(e.target.value)})}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Image</Form.Label>
-            <Form.Control type="file" placeholder="Image" onChange={(e) => setDevice({...device, img: e.target.files[0]})}/>
+            <Form.Label>Картинка</Form.Label>
+            <Form.Control type="text" placeholder="Картинка" value={device.img} onChange={(e) => setDevice({...device, img: e.target.value})} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Brand</Form.Label>
-            <Form.Select aria-label="Default select example" onChange={(e) => setDevice({...device, brandId: e.target.value})}>
-              <option selected disabled hidden>Brand</option>
+            <Form.Label>Бренд</Form.Label>
+            <Form.Select aria-label="Default select example" onChange={(e) => setDevice({...device, brandId: Number(e.target.value)})} value={device.brandId}>
+              <option selected disabled hidden>Бренд</option>
               {
-                brands.map(item => (
-                  <option value={item.id} onChange={(e) => setDevice({...device, brandId: item.id})}>{item.name}</option>
+                brands && brands.map(item => (
+                  <option value={item.id}>{item.name}</option>
                 ))          
               }
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Type</Form.Label>
-            <Form.Select aria-label="Default select example" onChange={(e) => setDevice({...device, typeId: e.target.value})}>
-              <option selected disabled hidden>Type</option>
+            <Form.Label>Типы</Form.Label>
+            <Form.Select aria-label="Default select example" onChange={(e) => setDevice({...device, typeId: Number(e.target.value)})}  value={device.typeId}>
+              <option selected disabled hidden>Типы</option>
               {
-                types.map(item => (
-                  <option value={item.id} >{item.name}</option>
+                types && types.map(item => (
+                  <option value={item.id}>{item.name}</option>
                 ))          
               }
             </Form.Select>
           </Form.Group>
           <Button variant="primary" type="submit">
-            Submit
+            Создать
           </Button>
         </Form>
         </div>
@@ -119,13 +131,13 @@ const Admin = () => {
               return (
                 <div style={{border:"1px solid rgba(17, 17, 20, 0.08)", borderRadius:6, padding:10}} className="mb-5 d-flex align-items:center">
                   <div className='me-3'>
-                    <p><b>Name:</b> {item.name }</p>
-                    <p><b>Price:</b> {item.price }</p>
-                    <p><b>Brand:</b> {item.brandId}</p>
-                    <p><b>Type:</b> {item.typeId}</p>
+                    <p><b>Название:</b> {item.name }</p>
+                    <p><b>Цена:</b> {item.price }</p>
+                    <p><b>Бренд:</b> {item.brandId}</p>
+                    <p><b>Тип:</b> {item.typeId}</p>
                   </div>
                   <div className='mt-2'>
-                    <Button variant="danger">Delete</Button>
+                    <Button variant="danger" onClick={() => deleteDeviceHandler(item.id)}>Удалить</Button>
                   </div>
                 </div>
               )
@@ -141,15 +153,15 @@ const Admin = () => {
             <h5>Добавить тип</h5>
             <Form onSubmit={(e) => typeHandler(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Name" value={type.name} onChange={(e) => setType({...type, name: e.target.value})} />
+              <Form.Label>Название</Form.Label>
+              <Form.Control type="text" placeholder="Название" value={type.name} onChange={(e) => setType({...type, name: e.target.value})} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Image</Form.Label>
-              <Form.Control type="file" placeholder="Image" onChange={(e) => setDevice({...type, img: e.target.files[0]})}/>
+              <Form.Label>Картинка</Form.Label>
+              <Form.Control type="text" placeholder="Картинка" value={type.img} onChange={(e) => setType({...type, img: e.target.value})} />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Создать
             </Button>
           </Form>
           </div>
@@ -160,10 +172,10 @@ const Admin = () => {
                 return (
                   <div style={{border:"1px solid rgba(17, 17, 20, 0.08)", borderRadius:6, padding:10}} className="mb-5 d-flex align-items-center">
                     <div className='me-3'>
-                      <p><b>Name:</b> {item.name }</p>
+                      <p><b>Название:</b> {item.name }</p>
                     </div>
                     <div className=''>
-                      <Button variant="danger">Delete</Button>
+                      <Button variant="danger" onClick={() => deleteTypeHandler(item.id)}>Удалить</Button>
                     </div>
                   </div>
                 )
@@ -179,11 +191,11 @@ const Admin = () => {
             <h5>Добавить бренд</h5>
             <Form onSubmit={(e) => brandHandler(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Name" value={brand.name} onChange={(e) => setBrand({...brand, name: e.target.value})} />
+              <Form.Label>Название</Form.Label>
+              <Form.Control type="text" placeholder="Название" value={brand.name} onChange={(e) => setBrand({...brand, name: e.target.value})} />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              Создать
             </Button>
           </Form>
           </div>
@@ -194,10 +206,10 @@ const Admin = () => {
                 return (
                   <div style={{border:"1px solid rgba(17, 17, 20, 0.08)", borderRadius:6, padding:10}} className="mb-5 d-flex align-items-center">
                     <div className='me-3'>
-                      <p><b>Name:</b> {item.name }</p>
+                      <p><b>Название:</b> {item.name }</p>
                     </div>
                     <div className=''>
-                      <Button variant="danger">Delete</Button>
+                      <Button variant="danger" onClick={() => deleteBrandHandler(item.id)}>Удалить</Button>
                     </div>
                   </div>
                 )

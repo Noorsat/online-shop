@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -52,9 +53,11 @@ const Advertising = () => {
             <Text>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry 
             </Text>
-            <Button>
-                См. все смартфоны
-            </Button>
+            <NavLink to="/showcase">
+                <Button>
+                    См. все смартфоны
+                </Button>
+            </NavLink>
         </div>
     </Container>
   )
